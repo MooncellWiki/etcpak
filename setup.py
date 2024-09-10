@@ -45,6 +45,7 @@ class CustomBuildExt(build_ext):
                     )
                 ext.extra_link_args = ["/LTCG:incremental"]
         else:
+            native_arg = None
             # For other compilers (e.g., GCC or Clang)
             if "-arm" in self.plat_name or "-aarch64" in self.plat_name:
                 if "macosx" in self.plat_name:
@@ -53,7 +54,10 @@ class CustomBuildExt(build_ext):
                     native_arg = "-mcpu=native"
 
             for ext in self.extensions:
-                ext.extra_compile_args.extend(["-std=c++20", native_arg or ""])
+                extend_args = ["-std=c++20"]
+                if native_arg:
+                    extend_args.append(extend_args)
+                ext.extra_compile_args.extend(extend_args)
 
         super().build_extensions()
 
