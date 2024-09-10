@@ -53,10 +53,10 @@ class CustomBuildExt(build_ext):
                 else:
                     native_arg = "-mcpu=native"
             else:
-                native_arg = "-march=native -mno-avx2"
+                native_arg = "-march=native"
 
             for ext in self.extensions:
-                ext.extra_compile_args.extend(["-std=c++20", native_arg])
+                ext.extra_compile_args.extend(["-std=c++20", "-mno-avx2", native_arg])
 
         super().build_extensions()
 
