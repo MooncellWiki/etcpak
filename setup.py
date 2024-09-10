@@ -52,12 +52,11 @@ class CustomBuildExt(build_ext):
                     native_arg = "-mcpu=apple-m1"
                 else:
                     native_arg = "-mcpu=native"
+            else:
+                native_arg = "-march=native -mno-avx2"
 
             for ext in self.extensions:
-                extend_args = ["-std=c++20"]
-                if native_arg:
-                    extend_args.append(extend_args)
-                ext.extra_compile_args.extend(extend_args)
+                ext.extra_compile_args.extend(["-std=c++20", native_arg])
 
         super().build_extensions()
 
