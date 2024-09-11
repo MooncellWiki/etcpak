@@ -52,6 +52,8 @@ class CustomBuildExt(build_ext):
                     native_arg = "-mcpu=apple-m1"
                 else:
                     native_arg = "-mcpu=native"
+            else:
+                native_arg = "-mno-avx2"
 
             for ext in self.extensions:
                 if native_arg:
